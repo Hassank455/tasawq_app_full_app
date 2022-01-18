@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "717985427361",
+    "project_id": "taswaq-flutter",
+    "storage_bucket": "taswaq-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717985427361:android:352abed2cfe6ff75c265e0",
+        "android_client_info": {
+          "package_name": "com.example.tik_laen_taswaq2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717985427361-jlopcv1696ukk6h5rmeh3i2v275964l2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHehkDtZzilUkxG9tx6t8d9-67bmcO1Wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717985427361-jlopcv1696ukk6h5rmeh3i2v275964l2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
