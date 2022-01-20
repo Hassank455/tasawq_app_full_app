@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
 import 'package:tik_laen_taswaq2/shared/components/constants.dart';
@@ -11,7 +12,7 @@ import '../billing/bill_screen.dart';
 
 class DialogForAddInformation extends StatelessWidget {
 
-  Order? order;
+  Order4? order;
   DialogForAddInformation({this.order});
 
   var nameController = TextEditingController();

@@ -7,6 +7,7 @@ import 'package:tik_laen_taswaq2/layout/bottom_home_screen.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/deliver_order.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/billing/bill_screen.dart';
@@ -22,7 +23,7 @@ import 'myAddress_screen.dart';
 
 
 class Checkbox2Screen extends StatefulWidget {
-  Order? order;
+  Order4? order;
   int? index;
   Checkbox2Screen({this.order, this.index});
 
@@ -51,8 +52,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
   void didChangeDependencies() {
     var arg = ModalRoute.of(context)!.settings.arguments;
     String? paidpp = (ShopCubit.get(context)
-        .todayOrders!
-        .order![widget.index!]
+        .newOrders!.order2![widget.index!]
         .paidPrice);
     productPriceController.text = paidpp ?? '0';
     super.didChangeDependencies();
@@ -93,8 +93,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
     }, builder: (context, state) {
       // deliverOrder = ShopCubit.get(context).deliverOrder;
       int? price = int.parse((ShopCubit.get(context)
-          .todayOrders!
-          .order![widget.index!]
+          .newOrders!.order2![widget.index!]
           .price) ?? '0');
 
       return Container(
@@ -185,8 +184,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                         child: RowTodayOrder2(
                           text1: 'تكلفة التوصيل',
                           numberText: (ShopCubit.get(context)
-                              .todayOrders!
-                              .order![widget.index!]
+                              .newOrders!.order2![widget.index!]
                               .price) ?? 0,
                           color2: Colors.black,
                           nisText: ' NIS    ',
@@ -223,8 +221,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                     padding: const EdgeInsets.only(right: 50, left: 50),
                     child: TextField(
                       enabled: (ShopCubit.get(context)
-                          .todayOrders!
-                          .order![widget.index!]
+                          .newOrders!.order2![widget.index!]
                           .paid) == null ? false : true,
                       controller: paidController2,
                       textAlign: TextAlign.center,
@@ -354,8 +351,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                       print(position?.latitude.toString());
                       print(position?.longitude.toString());
                       if ((ShopCubit.get(context)
-                          .todayOrders!
-                          .order![widget.index!]
+                          .newOrders!.order2![widget.index!]
                           .price) == null) {
                         showToast(
                             text: 'يرجى طلب التسعير', state: ToastStates.ERROR);

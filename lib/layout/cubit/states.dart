@@ -22,6 +22,12 @@ class ShopSuccessTodayOrdersState extends ShopStates {}
 
 class ShopErrorTodayOrdersState extends ShopStates {}
 
+class ShopLoadingNewOrdersState extends ShopStates {}
+
+class ShopSuccessNewOrdersState extends ShopStates {}
+
+class ShopErrorNewOrdersState extends ShopStates {}
+
 class ShopLoadingGetTodayOrderState extends ShopStates {}
 
 class ShopSuccessGetTodayOrderState extends ShopStates {}

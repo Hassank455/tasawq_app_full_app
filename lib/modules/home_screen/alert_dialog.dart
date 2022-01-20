@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/home_screen/home_screen.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
@@ -9,7 +10,7 @@ import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 import '../billing/bill_screen.dart';
 
 class AlertDialogHome extends StatefulWidget {
-  Order? order;
+  Order4? order;
   int? index;
 
   AlertDialogHome({this.order ,this.index});
@@ -45,7 +46,7 @@ class _AlertDialogHomeState extends State<AlertDialogHome> {
               decoration: BoxDecoration(
                 color: Colors.red.shade50, borderRadius: BorderRadius.circular(30),),
               function: () {
-               // assetsAudioPlayer.stop();
+               assetsAudioPlayer.stop();
                 Navigator.pop(context);
               },
               text: 'تم',

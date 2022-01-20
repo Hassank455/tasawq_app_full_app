@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/goAddress_screen.dart';
 import 'package:tik_laen_taswaq2/modules/home_screen/home_screen.dart';
@@ -11,7 +12,7 @@ import 'package:tik_laen_taswaq2/shared/components/components.dart';
 import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 
 class AlertDialogRequestPrice extends StatefulWidget {
-  Order? order;
+  Order4? order;
 
   AlertDialogRequestPrice({this.order});
 

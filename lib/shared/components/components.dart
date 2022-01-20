@@ -227,9 +227,7 @@ Widget containerBillScreen(
                   },
                   child: Image.asset("assets/images/Group-map.png")),
             )
-                :IconButton(onPressed: () {
-             // Navigator.push(context, MaterialPageRoute(builder: (context)=> MyAddressScreen()));
-            }, icon: Icon(Icons.add_location_alt_outlined)),
+                :Container(),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: GestureDetector(

@@ -1,11 +1,13 @@
 import 'dart:io';
 
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/home_screen/NotificationDialog.dart';
 import 'package:tik_laen_taswaq2/modules/home_screen/alert_dialog.dart';
@@ -18,9 +20,9 @@ class PushNotificationService {
 
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   int? index;
-  Order? order;
+  Order4? order2;
 
-  Future initialize(context, Order order) async {
+  Future initialize(context, Order4 order) async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("onMessage data data: ${message.data.toString()}");
       print("onMessage data title: ${message.notification!.title}");
@@ -41,7 +43,7 @@ class PushNotificationService {
                 android: AndroidNotificationDetails(
                   channel!.id,
                   channel!.name,
-                  icon: 'launch_background',
+                  icon: '@mipmap/ic_launcher',
                 ),
               ));
         }
@@ -93,8 +95,8 @@ class PushNotificationService {
 
   void retrieveRideRequestInfo(String? text, BuildContext context) {
     if (text != null) {
-     // assetsAudioPlayer.open(Audio("assets/sounds/alert.mp3"));
-     // assetsAudioPlayer.play();
+     assetsAudioPlayer.open(Audio("assets/sounds/alert.mp3"));
+      assetsAudioPlayer.play();
 
       // order.id = ShopCubit.get(context).todayOrders!.order['id'] as int;
       // order.toId?.name = 'hassan';
@@ -106,11 +108,11 @@ class PushNotificationService {
         barrierDismissible: false,
         useSafeArea: false,
          //builder: (BuildContext context) => NotificationDialog(order: order),
-         builder: (BuildContext context) => AlertDialogHome(order: order, index: index,),
+         builder: (BuildContext context) => AlertDialogHome(order: order2, index: index,),
       );
     }
 
   }
 
-  PushNotificationService({this.index , this.order});
+  PushNotificationService({this.index , this.order2});
 }

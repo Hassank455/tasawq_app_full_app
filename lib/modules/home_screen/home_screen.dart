@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/balance.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/billing/bill_screen.dart';
 import 'package:tik_laen_taswaq2/modules/fcm.dart';
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ScrollController scrollController = ScrollController();
   // TodayOrder? model;
 
-  Order order = Order();
+  Order4? order3 = Order4();
   Timer? timer;
   int? index;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
@@ -41,21 +42,22 @@ class _HomeScreenState extends State<HomeScreen> {
       ShopCubit.get(context).getTodayOrder();
       ShopCubit.get(context).getBalance();
       ShopCubit.get(context).postUserTrack();
+      ShopCubit.get(context).getNewOrder();
     }));
 
-    PushNotificationService pushNotificationService = PushNotificationService(order: order,index:index );
-    pushNotificationService.initialize(context,order);
+    PushNotificationService pushNotificationService = PushNotificationService(order2: order3,index:index );
+    pushNotificationService.initialize(context,order3!);
     //pushNotificationService.getToken();
   }
 
   @override
   Widget build(BuildContext context) {
-    TodayOrder? model;
+    NewOrder? model;
     Balance? balance;
     return BlocConsumer<ShopCubit, ShopStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          model = ShopCubit.get(context).todayOrders;
+          model = ShopCubit.get(context).newOrders;
           balance = ShopCubit.get(context).balance;
 
           return SafeArea(
@@ -154,14 +156,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 15),
                         model != null
-                            ? (model!.order!.length != 0)
+                            ? (model!.order2!.length != 0)
                             ? ListView.builder(
                           controller: scrollController,
                           shrinkWrap: true,
-                          itemCount: model!.order!.length,
+                          itemCount: model!.order2!.length,
                           itemBuilder: (context, index) {
                             return listViewText(
-                                context, model!.order![index],index);
+                                context, model!.order2![index],index);
                           },
                         )
                             : Center(
@@ -184,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 
-  Widget listViewText(context, Order? model,int index) {
+  Widget listViewText(context, Order4? model,int index) {
     return Column(
       children: [
         containerHomePage(

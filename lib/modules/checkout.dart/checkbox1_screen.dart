@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/confirm_receive.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/home_screen/home_screen.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
@@ -16,7 +17,7 @@ import '../goAddress_screen.dart';
 import 'alert_dialog_request_price.dart';
 
 class Checkbox1Screen extends StatefulWidget {
-  Order? order;
+  Order4? order;
   int? index;
   Checkbox1Screen({this.order, this.index});
 
@@ -239,7 +240,7 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
     });
   }
 }
-
+Position? position;
 /*
 void map()async{
    position = await Geolocator.getCurrentPosition(

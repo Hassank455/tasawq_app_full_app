@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/accept_order.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/billing/dialog_for_add_information.dart';
 import 'package:tik_laen_taswaq2/modules/goAddress_screen.dart';
@@ -12,7 +13,7 @@ import 'package:tik_laen_taswaq2/shared/components/components.dart';
 import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 
 class BillScreen extends StatefulWidget {
-  Order? order;
+  Order4? order;
   int? index;
   BillScreen({this.order, this.index});
 
@@ -38,9 +39,9 @@ class _BillScreenState extends State<BillScreen> {
       builder: (context, state) {
 
         int? paidPriceSum = int.parse((ShopCubit.get(context)
-            .todayOrders!.order![widget.index!].paidPrice) ?? '0');
+            .newOrders!.order2![widget.index!].paidPrice) ?? '0');
         int? priceSum = int.parse((ShopCubit.get(context)
-            .todayOrders!.order![widget.index!].price) ?? '0');
+            .newOrders!.order2![widget.index!].price) ?? '0');
         return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -60,7 +61,7 @@ class _BillScreenState extends State<BillScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 100),
                                 child: Text('  فاتورة #${(ShopCubit.get(context)
-                                    .todayOrders!.order![widget.index!].id)}',
+                                    .newOrders!.order2![widget.index!].id)}',
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 22)),
                               ),
@@ -79,40 +80,40 @@ class _BillScreenState extends State<BillScreen> {
                         containerBillScreen(
                           context: context,
                           name: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].fromId?.name) ?? '-',
+                              .newOrders!.order2![widget.index!].fromId?.name) ?? '-',
                           address: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].fromAddress?.address) ?? '-',
+                              .newOrders!.order2![widget.index!].fromAddress?.address) ?? '-',
                           mobile: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].fromMobile) ?? '',
+                              .newOrders!.order2![widget.index!].fromMobile) ?? '',
                           latudide: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].fromAddress?.lat),
+                              .newOrders!.order2![widget.index!].fromAddress?.lat),
                           longtuide: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].fromAddress?.lng),
+                              .newOrders!.order2![widget.index!].fromAddress?.lng),
                           id: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].toAddress?.id),
+                              .newOrders!.order2![widget.index!].toAddress?.id),
                         ),
                         SizedBox(height: 15),
                         Center(child: myDivider(width: 360)),
                         SizedBox(height: 15),
                         ((ShopCubit.get(context)
-                            .todayOrders!.order![widget.index!].toId) != null &&
+                            .newOrders!.order2![widget.index!].toId) != null &&
                             (ShopCubit.get(context)
-                                .todayOrders!.order![widget.index!].fromId) != null/* && widget.order?.toId != null &&
+                                .newOrders!.order2![widget.index!].fromId) != null/* && widget.order?.toId != null &&
                         widget.order?.toAddress != null*/)
                             ? containerBillScreen(
                           context: context,
                           name: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].toId?.name) ?? '-',
+                              .newOrders!.order2![widget.index!].toId?.name) ?? '-',
                           address: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].toAddress?.address) ?? '-',
+                              .newOrders!.order2![widget.index!].toAddress?.address) ?? '-',
                           mobile: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].toMobile) ?? '',
+                              .newOrders!.order2![widget.index!].toMobile) ?? '',
                           latudide: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!]).toAddress?.lat,
+                              .newOrders!.order2![widget.index!]).toAddress?.lat,
                           longtuide: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].toAddress?.lng),
+                              .newOrders!.order2![widget.index!].toAddress?.lng),
                           id: (ShopCubit.get(context)
-                              .todayOrders!.order![widget.index!].toAddress?.id),
+                              .newOrders!.order2![widget.index!].toAddress?.id),
                         )
                             : Center(
                             child: GestureDetector(
@@ -139,7 +140,7 @@ class _BillScreenState extends State<BillScreen> {
                               ),
                               Text(
                                 (ShopCubit.get(context)
-                                    .todayOrders!.order![widget.index!].details) ?? '-',
+                                    .newOrders!.order2![widget.index!].details) ?? '-',
                                 style: TextStyle(fontSize: 16),
                               ),
                             ],
@@ -157,7 +158,7 @@ class _BillScreenState extends State<BillScreen> {
                               ),
                               Text(
                                 (ShopCubit.get(context)
-                                    .todayOrders!.order![widget.index!].notes) ?? '-',
+                                    .newOrders!.order2![widget.index!].notes) ?? '-',
                                 style: TextStyle(fontSize: 16),
                               ),
                             ],
@@ -196,7 +197,7 @@ class _BillScreenState extends State<BillScreen> {
                             child: Column(
                               children: [
                                 (ShopCubit.get(context)
-                                    .todayOrders!.order![widget.index!]
+                                    .newOrders!.order2![widget.index!]
                                     .status) == 0
                                     ? Column(
                                   children: [
@@ -243,9 +244,9 @@ class _BillScreenState extends State<BillScreen> {
                                 )
                                     : Container(),
                                 (ShopCubit.get(context)
-                                    .todayOrders!.order![widget.index!]
+                                    .newOrders!.order2![widget.index!]
                                     .status) == 1 || (ShopCubit.get(context)
-                                    .todayOrders!.order![widget.index!]
+                                    .newOrders!.order2![widget.index!]
                                     .status) == 2
                                     ? Column(
                                   children: [
@@ -287,7 +288,7 @@ class _BillScreenState extends State<BillScreen> {
     );
   }
 
-  void show(context, Order order) {
+  void show(context, Order4? order) {
     showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: Colors.white,

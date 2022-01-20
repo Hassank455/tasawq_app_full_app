@@ -83,7 +83,7 @@ class NotificationDialog extends StatelessWidget {
                     textColor: Colors.red,
                     padding: EdgeInsets.all(8.0),
                     onPressed: () {
-                      //assetsAudioPlayer.stop();
+                      assetsAudioPlayer.stop();
                       Navigator.pop(context);
                     },
                     child: Text(
@@ -100,7 +100,7 @@ class NotificationDialog extends StatelessWidget {
                     color: Colors.green,
                     textColor: Colors.white,
                     onPressed: () {
-                     // assetsAudioPlayer.stop();
+                     assetsAudioPlayer.stop();
                       //  checkAvailabilityOfRide(context);
                     },
                     child: Text(

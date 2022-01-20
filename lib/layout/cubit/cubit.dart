@@ -14,6 +14,7 @@ import 'package:tik_laen_taswaq2/models/confirm_receive.dart';
 import 'package:tik_laen_taswaq2/models/deliver_order.dart';
 import 'package:tik_laen_taswaq2/models/details_order.dart';
 import 'package:tik_laen_taswaq2/models/end_work.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/profile.dart';
 import 'package:tik_laen_taswaq2/models/request_price.dart';
 import 'package:tik_laen_taswaq2/models/save_address.dart';
@@ -60,6 +61,25 @@ class ShopCubit extends Cubit<ShopStates> {
     }).catchError((error) {
       print(error.toString());
       emit(ShopErrorTodayOrdersState());
+    });
+  }
+
+  NewOrder? newOrders;
+  Future<void> getNewOrder() async {
+    emit(ShopLoadingNewOrdersState());
+    DioHelper.getData(
+      url: NEW_ORDER,
+      token: 'Bearer $token',
+    ).then((value) {
+      // Logger().e("***********************************");
+//Logger().e(value.data);
+      //print(value.data);
+      newOrders = NewOrder.fromJson(value.data);
+      print(value.data);
+      emit(ShopSuccessNewOrdersState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShopErrorNewOrdersState());
     });
   }
 

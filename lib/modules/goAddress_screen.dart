@@ -11,6 +11,7 @@ import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/balance.dart';
 import 'package:tik_laen_taswaq2/models/direction.dart';
+import 'package:tik_laen_taswaq2/models/new_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/home_screen/home_screen.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
@@ -25,7 +26,7 @@ import 'checkout.dart/checkbox2_screen.dart';
 import 'package:tik_laen_taswaq2/shared/cubit/states.dart';
 
 class GoAddressScreen extends StatefulWidget {
-  Order? order;
+  Order4? order;
   int? index;
   GoAddressScreen({this.order, this.index});
 
@@ -180,7 +181,7 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                                 infoWindow: InfoWindow(
                                   title: widget.order?.toAddress?.name ?? '-',
                                   snippet:
-                                  (ShopCubit.get(context).todayOrders?.order![widget.index!]
+                                  (ShopCubit.get(context).newOrders?.order2![widget.index!]
                                       .toAddress?.address ?? '-'
                                   ),
                                   // widget.order?.toAddress?.address ?? '-',
@@ -212,13 +213,29 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                   SizedBox(height: 20),
                   //  (widget.order!.status == 0)
                   (ShopCubit.get(context)
-                      .todayOrders!.order![widget.index!]
+                      .newOrders!.order2![widget.index!]
                       .status) == 0 || (ShopCubit.get(context)
-                      .todayOrders!.order![widget.index!]
+                      .newOrders!.order2![widget.index!]
                       .status) == 1
                       ? defaultButton(
                       function: () async {
-                        show1();
+                        showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            context: context,
+                            builder: (context) {
+                              return Checkbox1Screen(
+                                order: widget.order,
+                                index: widget.index,
+
+                              );
+                            });
                         await getMyLocation();
                         setState(() {
                           ShopCubit.get(context).postTrackUser(
@@ -242,13 +259,11 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                           borderRadius: BorderRadius.circular(15)))
                   // : (widget.order?.price == null || widget.order?.price == '0' )
                       : ((ShopCubit.get(context)
-                      .todayOrders!
-                      .order![widget.index!]
+                      .newOrders!.order2![widget.index!]
                       .price) ==
                       null ||
                       (ShopCubit.get(context)
-                          .todayOrders!
-                          .order![widget.index!]
+                          .newOrders!.order2![widget.index!]
                           .price) ==
                           '0')
                       ? defaultButton(
@@ -283,7 +298,7 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                   //     (widget.order!.status == 2 || widget.order!.status != 1)
 
                       : (ShopCubit.get(context)
-                      .todayOrders!.order![widget.index!]
+                      .newOrders!.order2![widget.index!]
                       .status) == 2
                       ? defaultButton(
                     function: () async {
@@ -291,7 +306,7 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                       await getMyLocation();
                       ShopCubit.get(context).postTrackUser(
                         id: (ShopCubit.get(context)
-                            .todayOrders!.order![widget.index!].id),
+                            .newOrders!.order2![widget.index!].id),
                         lat: currentPosition?.longitude.toString(),
                         lng: currentPosition?.latitude.toString(),
                       );
