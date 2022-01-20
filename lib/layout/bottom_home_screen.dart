@@ -53,8 +53,16 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
                   cubit.changeItem(index);
                 },
                 height: 55,
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.deepOrange.shade500,
                 activeColor: Colors.white,
+                elevation: .5,
+                color: Colors.white,
+                gradient: LinearGradient(
+                    colors: [
+                      Colors.deepOrange.shade400,
+                      Colors.deepOrangeAccent.shade400
+                    ]
+                ),
               ),
               body: cubit.widgetOptions[cubit.currentIndex],
             ),

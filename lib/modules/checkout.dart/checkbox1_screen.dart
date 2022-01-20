@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/confirm_receive.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/home_screen/home_screen.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
+import 'package:tik_laen_taswaq2/shared/components/constants.dart';
 import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 
 import '../goAddress_screen.dart';
@@ -25,10 +27,19 @@ class Checkbox1Screen extends StatefulWidget {
 class _CheckboxScreenState extends State<Checkbox1Screen> {
   var paidController = TextEditingController();
 
-  late bool checked;
-  void initState() {
+
+  /*Future<void> map()async{
+
+  }
+  late Position? position;*/
+      late bool checked;
+  void initState()  {
     super.initState();
     checked = false;
+    /*Future.delayed(Duration(seconds: 2),()async {
+      position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+    });*/
     // new Timer.periodic(Duration(seconds: 3), (Timer t) => setState((){
     //   ShopCubit.get(context).balance!;
     //   ShopCubit.get(context).todayOrders!;
@@ -41,8 +52,21 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
 
   }
 
+  /*@override
+  void didChangeDependencies() async {
+    position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high) ;
+    super.didChangeDependencies();
+  }*/
+
+
   @override
   Widget build(BuildContext context) {
+
+    /*print('@#@#@#');
+    print(position?.latitude.toString());
+    print(position?.longitude.toString());*/
+
     ConfirmReceive? confirmReceive;
     int? paid = 0;
     return BlocConsumer<ShopCubit, ShopStates>(listener: (context, state) {
@@ -169,7 +193,13 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
                       decoration: BoxDecoration(
                           color: defaultColor,
                           borderRadius: BorderRadius.circular(30)),
-                      function: () {
+                      function: ()  async{
+                        position = await Geolocator.getCurrentPosition(
+                            desiredAccuracy: LocationAccuracy.high) ;
+                        print('@#@#@#');
+                       print(position?.latitude.toString());
+                            print(position?.longitude.toString());
+
                         print('postConfirmReceive');
 
                         print(
@@ -180,6 +210,8 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
                             widget.order?.price ?? '',
                             paidController.text,
                             widget.order?.paid ?? 0,
+                            position!.latitude.toString(),
+                            position!.longitude.toString()
                           );
 
                           // print('${ShopCubit.get(context).confirmReceive!.order!.id}');
@@ -207,3 +239,9 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
     });
   }
 }
+
+/*
+void map()async{
+   position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high) ;
+}*/

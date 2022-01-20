@@ -40,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ShopCubit.get(context).todayOrders!;
       ShopCubit.get(context).getTodayOrder();
       ShopCubit.get(context).getBalance();
+      ShopCubit.get(context).postUserTrack();
     }));
 
     PushNotificationService pushNotificationService = PushNotificationService(order: order,index:index );

@@ -98,7 +98,7 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
         if (state is ShopSuccessTrackState) {
-          showToast(text: 'تم التتبع', state: ToastStates.SUCCESS);
+          //showToast(text: 'تم التتبع', state: ToastStates.SUCCESS);
         }
       },
       builder: (context, state) {
@@ -213,9 +213,9 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                   //  (widget.order!.status == 0)
                   (ShopCubit.get(context)
                       .todayOrders!.order![widget.index!]
-                      .status) == 1 || (ShopCubit.get(context)
+                      .status) == 0 || (ShopCubit.get(context)
                       .todayOrders!.order![widget.index!]
-                      .status) == 0
+                      .status) == 1
                       ? defaultButton(
                       function: () async {
                         show1();
@@ -290,7 +290,8 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                       show2();
                       await getMyLocation();
                       ShopCubit.get(context).postTrackUser(
-                        id: widget.order?.id,
+                        id: (ShopCubit.get(context)
+                            .todayOrders!.order![widget.index!].id),
                         lat: currentPosition?.longitude.toString(),
                         lng: currentPosition?.latitude.toString(),
                       );

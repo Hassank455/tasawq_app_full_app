@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/login/cubit/states.dart';
@@ -36,37 +38,39 @@ late AndroidNotificationChannel? channel;
 late FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 void main() async {
- await WidgetsFlutterBinding.ensureInitialized();
+  await WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+
+
 
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
   Widget? widget;
 
- if (!kIsWeb) {
-   channel = const AndroidNotificationChannel(
-     'high_importance_channel', // id
-     'High Importance Notifications', // title
-     // 'This channel is used for important notifications.', // description
-     importance: Importance.high,
-   );
+  if (!kIsWeb) {
+    channel = const AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      // 'This channel is used for important notifications.', // description
+      importance: Importance.high,
+    );
 
-   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-   await flutterLocalNotificationsPlugin!
-       .resolvePlatformSpecificImplementation<
-       AndroidFlutterLocalNotificationsPlugin>()
-       ?.createNotificationChannel(channel!);
+    await flutterLocalNotificationsPlugin!
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel!);
 
-   await FirebaseMessaging.instance
-       .setForegroundNotificationPresentationOptions(
-     alert: true,
-     badge: true,
-     sound: true,
-   );
- }
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
 
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
@@ -95,6 +99,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.grey,
+
+    ));
     Wakelock.enable();
     return MultiBlocProvider(
       providers: [
@@ -114,6 +122,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: startWidget,
+
             //  home: LoginScreen(),
             // home: WelcomeScreen(),
           );
@@ -122,6 +131,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -4,16 +4,20 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
+<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
 
 
    <application
-        android:label="tik_laen_taswaq2"
+        android:label="تسوق دلفري"
         android:icon="@mipmap/ic_launcher">
+
+       <meta-data
+           android:name="com.google.firebase.messaging.default_notification_icon"
+           android:resource="@mipmap/ic_launcher" />
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyDtYRQEOzu3JT1gSi_ddWK8lJEP9ApX-2o"
            />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

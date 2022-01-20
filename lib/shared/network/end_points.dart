@@ -32,5 +32,7 @@ const ADD_INFORMATION = 'addto';
 
 const TRACK = 'track';
 
+const User_LOCATION = 'user_location';
+
 
 

@@ -408,6 +408,8 @@ class Order {
     this.status,
     this.reason,
     this.priceRequest,
+    this.fromBalance,
+    this.toBalance,
   });
 
   int? id;
@@ -437,6 +439,8 @@ class Order {
   String? toMobile;
  // String? remainClient;
  // int? remainCaptain;
+  late final FromBalance? fromBalance;
+  late final ToBalance? toBalance;
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -470,6 +474,12 @@ class Order {
     toMobile = json['to_mobile'] == null ? null : json['to_mobile'];
     //  remainClient = json['remain_client'];
     //  remainCaptain = json['remain_captain'];
+    fromBalance = json['from_balance'] == null
+        ? null
+        : FromBalance.fromJson(json['from_balance']);
+    toBalance = json['to_balance'] == null
+        ? null
+        : ToBalance.fromJson(json['to_balance']);
   }
 
   Map<String, dynamic> toJson() {
@@ -501,6 +511,8 @@ class Order {
     _data['to_mobile'] = toMobile;
     //  _data['remain_client'] = remainClient;
     // _data['remain_captain'] = remainCaptain;
+    _data['from_balance'] = fromBalance?.toJson();
+    _data['to_balance'] = toBalance?.toJson();
     return _data;
   }
 }
@@ -709,6 +721,44 @@ class ToAddress {
     _data['mobile'] = mobile;
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;
+    return _data;
+  }
+
+
+
+}
+
+class FromBalance {
+  FromBalance({
+    required this.balance,
+  });
+  late final int balance;
+
+  FromBalance.fromJson(Map<String, dynamic> json){
+    balance = json['balance'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['balance'] = balance;
+    return _data;
+  }
+}
+
+class ToBalance {
+  ToBalance({
+    required this.balance,
+  });
+
+  late final int balance;
+
+  ToBalance.fromJson(Map<String, dynamic> json){
+    balance = json['balance'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['balance'] = balance;
     return _data;
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:logger/logger.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/accept_order.dart';
@@ -161,7 +162,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   ConfirmReceive? confirmReceive;
 
-  void postConfirmReceive(int id, String price, String paidPrice, int paid) {
+  void postConfirmReceive(int id, String price, String paidPrice, int paid, String lat, String lng) {
     emit(ShopLoadingConfirmReceiveState());
 
     DioHelper.postData(
@@ -172,9 +173,12 @@ class ShopCubit extends Cubit<ShopStates> {
         'price': price,
         'paid_price': paidPrice,
         'paid': paid,
+        'lat': lat,
+        'lng': lng,
       },
     ).then((value) {
       confirmReceive = ConfirmReceive.fromJson(value.data);
+      print('33333333333');
       print(value.data.toString());
       emit(ShopSuccessConfirmReceiveState(confirmReceive!));
     }).catchError((error) {
@@ -247,7 +251,7 @@ class ShopCubit extends Cubit<ShopStates> {
   // DeliverOrder? deliverOrder;
   DeliverOrder? deliverOrder;
 
-  void postDeliverOrder(int id, String netPaid, String remainClient,String paidPrice) {
+  void postDeliverOrder(int id, String netPaid, String remainClient,String paidPrice,String lat,String lng) {
     emit(ShopLoadingDeliverOrderState());
 
     DioHelper.postData(
@@ -258,12 +262,15 @@ class ShopCubit extends Cubit<ShopStates> {
         'net_paid': netPaid,
         'remain_client': remainClient,
         'paid_price': paidPrice,
+        'lat': lat,
+        'lng': lng,
       },
     ).then((value) {
       deliverOrder = DeliverOrder.fromJson(value.data);
       print(value.data.toString());
       emit(ShopSuccessDeliverOrderState());
     }).catchError((error) {
+      print('error###');
       print(error.toString());
       emit(ShopErrorDeliverOrderState());
     });
@@ -333,6 +340,32 @@ class ShopCubit extends Cubit<ShopStates> {
     }).catchError((error) {
       print(error.toString());
        emit(ShopErrorTrackState());
+    });
+  }
+
+
+  Future<void> postUserTrack(
+      ) async {
+    emit(ShopLoadingTrackState());
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    DioHelper.postData(
+      url: User_LOCATION,
+      token: 'Bearer $token',
+      query: {
+        'lat': position.latitude,
+        'lng': position.longitude,
+      },
+    ).then((value)  {
+      print('the position is ');
+      print(position);
+      print(value.data.toString());
+      emit(ShopSuccessTrackState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShopErrorTrackState());
     });
   }
 

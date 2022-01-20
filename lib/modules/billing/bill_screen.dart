@@ -14,7 +14,6 @@ import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 class BillScreen extends StatefulWidget {
   Order? order;
   int? index;
-
   BillScreen({this.order, this.index});
 
   @override
@@ -38,8 +37,10 @@ class _BillScreenState extends State<BillScreen> {
       },
       builder: (context, state) {
 
-        int? paidPriceSum = int.parse(widget.order?.paidPrice ?? '0');
-        int? priceSum = int.parse(widget.order?.price ?? '0');
+        int? paidPriceSum = int.parse((ShopCubit.get(context)
+            .todayOrders!.order![widget.index!].paidPrice) ?? '0');
+        int? priceSum = int.parse((ShopCubit.get(context)
+            .todayOrders!.order![widget.index!].price) ?? '0');
         return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -58,7 +59,8 @@ class _BillScreenState extends State<BillScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 100),
-                                child: Text('  فاتورة #${widget.order!.id}',
+                                child: Text('  فاتورة #${(ShopCubit.get(context)
+                                    .todayOrders!.order![widget.index!].id)}',
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 22)),
                               ),
@@ -76,27 +78,41 @@ class _BillScreenState extends State<BillScreen> {
                         SizedBox(height: 15),
                         containerBillScreen(
                           context: context,
-                          name: widget.order?.fromId?.name ?? '-',
-                          address: widget.order?.fromAddress?.address ?? '-',
-                          mobile: widget.order?.fromMobile ?? '',
-                          latudide: widget.order?.fromAddress?.lat,
-                          longtuide: widget.order?.fromAddress?.lng,
-                          id: widget.order?.toAddress?.id,
+                          name: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].fromId?.name) ?? '-',
+                          address: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].fromAddress?.address) ?? '-',
+                          mobile: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].fromMobile) ?? '',
+                          latudide: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].fromAddress?.lat),
+                          longtuide: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].fromAddress?.lng),
+                          id: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].toAddress?.id),
                         ),
                         SizedBox(height: 15),
                         Center(child: myDivider(width: 360)),
                         SizedBox(height: 15),
-                        (widget.order?.toId != null &&
-                            widget.order?.fromId != null/* && widget.order?.toId != null &&
+                        ((ShopCubit.get(context)
+                            .todayOrders!.order![widget.index!].toId) != null &&
+                            (ShopCubit.get(context)
+                                .todayOrders!.order![widget.index!].fromId) != null/* && widget.order?.toId != null &&
                         widget.order?.toAddress != null*/)
                             ? containerBillScreen(
                           context: context,
-                          name: widget.order?.toId?.name ?? '-',
-                          address: widget.order?.toAddress?.address ?? '-',
-                          mobile: widget.order?.toMobile ?? '',
-                          latudide: widget.order?.toAddress?.lat,
-                          longtuide: widget.order?.toAddress?.lng,
-                          id: widget.order?.toAddress?.id,
+                          name: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].toId?.name) ?? '-',
+                          address: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].toAddress?.address) ?? '-',
+                          mobile: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].toMobile) ?? '',
+                          latudide: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!]).toAddress?.lat,
+                          longtuide: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].toAddress?.lng),
+                          id: (ShopCubit.get(context)
+                              .todayOrders!.order![widget.index!].toAddress?.id),
                         )
                             : Center(
                             child: GestureDetector(
@@ -122,7 +138,8 @@ class _BillScreenState extends State<BillScreen> {
                                 style: TextStyle(fontSize: 20),
                               ),
                               Text(
-                                widget.order?.details ?? '-',
+                                (ShopCubit.get(context)
+                                    .todayOrders!.order![widget.index!].details) ?? '-',
                                 style: TextStyle(fontSize: 16),
                               ),
                             ],
@@ -139,7 +156,8 @@ class _BillScreenState extends State<BillScreen> {
                                 style: TextStyle(fontSize: 20, color: defaultColor),
                               ),
                               Text(
-                                widget.order?.notes ?? '-',
+                                (ShopCubit.get(context)
+                                    .todayOrders!.order![widget.index!].notes) ?? '-',
                                 style: TextStyle(fontSize: 16),
                               ),
                             ],
@@ -257,10 +275,6 @@ class _BillScreenState extends State<BillScreen> {
                                     ),
                                   ],
                                 )
-                                    :  (ShopCubit.get(context)
-                                    .todayOrders!.order![widget.index!]
-                                    .status) == 3?
-                                Container()
                                     : Container(),
                                 SizedBox(height: 180),
                               ],

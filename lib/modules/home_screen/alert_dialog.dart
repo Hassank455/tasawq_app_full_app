@@ -23,8 +23,11 @@ class _AlertDialogHomeState extends State<AlertDialogHome> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(32.0))),
       content: Container(
-        height: 400,
+        height: 200,
         child: Column(
           children: [
             Text(
@@ -33,57 +36,22 @@ class _AlertDialogHomeState extends State<AlertDialogHome> {
             ),
             SizedBox(height: 10),
             Text(
-              'اضغط موافقة وتوجه لاستلام طلبك',
+              'اضغط تم وتوجه لاستلام طلبك',
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 10),
-            Text(
-                  //textOrder!,
-              widget.order?.fromId?.name ?? '-',
-              style: TextStyle(fontSize: 22, color: defaultColor),
-            ),
-            SizedBox(height: 10),
-            Text(
-              //address!,
-              widget.order?.fromAddress?.address ?? '-',
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
             defaultButton(
               width: 270,
               decoration: BoxDecoration(
-                  color: defaultColor, borderRadius: BorderRadius.circular(30)),
+                color: Colors.red.shade50, borderRadius: BorderRadius.circular(30),),
               function: () {
                // assetsAudioPlayer.stop();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>HomeScreen()
-                        // BillScreen(
-                        //   order: widget.order,
-                        //   index: widget.index,
-                        // )
-                    ));
-              },
-              text: 'موافق',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-              ),
-            ),SizedBox(height: 20),
-            defaultButton(
-              width: 270,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(30),),
-              function: () {
-                //assetsAudioPlayer.stop();
                 Navigator.pop(context);
               },
-              text: 'رفض',
+              text: 'تم',
               style: TextStyle(
                 color: defaultColor,
-                fontSize: 22,
+                fontSize: 25,
               ),
             ),
           ],
