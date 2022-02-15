@@ -342,19 +342,23 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
 
-  void postTrackUser(
-      {int? id, String? lat, String? lng}) {
+  Future<void> postTrackUser(
+      {int? id, String? lat, String? lng}) async {
     emit(ShopLoadingAddInformationState());
-
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     DioHelper.postData(
       url: TRACK,
       token: 'Bearer $token',
       query: {
-        'order_id': id,
-        'lat': lat,
-        'lng': lng,
+        'order_id': id.toString(),
+        'lat': position.latitude.toString(),
+        'lng': position.longitude.toString(),
       },
     ).then((value) {
+      print(position.latitude);
+      print(position.longitude);
+      print('hihihi');
       print(value.data.toString());
       emit(ShopSuccessTrackState());
     }).catchError((error) {
@@ -375,8 +379,8 @@ class ShopCubit extends Cubit<ShopStates> {
       url: User_LOCATION,
       token: 'Bearer $token',
       query: {
-        'lat': position.latitude,
-        'lng': position.longitude,
+        'lat': position.latitude.toString(),
+        'lng': position.longitude.toString(),
       },
     ).then((value)  {
       print('the position is ');

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
@@ -8,11 +10,39 @@ import 'login/cubit/cubit.dart';
 import 'login/cubit/states.dart';
 import 'login/login_screen.dart';
 
-class ProfileScrren extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var oldPasswordController = TextEditingController();
-  var newPasswordController = TextEditingController();
+class ProfileScrren extends StatefulWidget {
+  @override
+  State<ProfileScrren> createState() => _ProfileScrrenState();
+}
 
+class _ProfileScrrenState extends State<ProfileScrren> {
+  var formKey = GlobalKey<FormState>();
+
+  var oldPasswordController = TextEditingController();
+
+  var newPasswordController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    new Timer.periodic(Duration(seconds: 5), (Timer t) => setState((){
+      // ShopCubit.get(context).todayOrders!;
+      // ShopCubit.get(context).getTodayOrder();
+      //  ShopCubit.get(context).getBalance();
+      ShopCubit.get(context).postUserTrack();
+      print('dddddsssss');
+
+      //  ShopCubit.get(context).getNewOrder();
+    }));
+
+  }
+
+
+  @override
+  void dispose() {
+    ShopCubit.get(context).postUserTrack();
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

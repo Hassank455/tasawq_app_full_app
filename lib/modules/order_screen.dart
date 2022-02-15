@@ -1,15 +1,42 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/details_order.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
+import 'package:tik_laen_taswaq2/modules/home_screen/refresh_widget.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
 import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 
-class OrderScreen extends StatelessWidget {
-  ScrollController scrollController = ScrollController();
+class OrderScreen extends StatefulWidget {
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
 
+class _OrderScreenState extends State<OrderScreen> {
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    new Timer.periodic(Duration(seconds: 5), (Timer t) => setState((){
+      // ShopCubit.get(context).todayOrders!;
+      // ShopCubit.get(context).getTodayOrder();
+      //  ShopCubit.get(context).getBalance();
+      ShopCubit.get(context).postUserTrack();
+      //  ShopCubit.get(context).getNewOrder();
+    }));
+
+  }
+
+
+  @override
+  void dispose() {
+    ShopCubit.get(context).postUserTrack();
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     TodayOrder? model;
@@ -18,67 +45,75 @@ class OrderScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         model = ShopCubit.get(context).todayOrders;
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'طلبات اليوم ',
-                style: TextStyle(fontSize: 22),
-              ),
-              centerTitle: true,
-              backgroundColor: defaultColor,
-              toolbarHeight: 80,
-            ),
-            body: SingleChildScrollView(
-              child: Container(
-                color: Colors.grey[100],
-                child: Column(
-                  children: [
-                    Container(
-                      height: 55,
-                      color: Colors.white,
-                      padding: EdgeInsets.only(left: 30, right: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'عدد الطلبات (${model!.order!.length})',
-                            //'${ShopCubit.get(context).todayOrders!.order!.length}',
-                            style: TextStyle(fontSize: 18, color: Colors.black),
+        return RefreshWidget(
+          onRefresh: () async{
+            ShopCubit.get(context).getTodayOrder();
+
+          },
+          child: SafeArea(
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    'طلبات اليوم ',
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  centerTitle: true,
+                  backgroundColor: defaultColor,
+                  toolbarHeight: 80,
+                ),
+                body: SingleChildScrollView(
+                  child: Container(
+                    color: Colors.grey[100],
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 55,
+                          color: Colors.white,
+                          padding: EdgeInsets.only(left: 30, right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'عدد الطلبات (${model!.order!.length})',
+                                //'${ShopCubit.get(context).todayOrders!.order!.length}',
+                                style: TextStyle(fontSize: 18, color: Colors.black),
+                              ),
+                              Text(
+                                '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
+                                style: TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
                           ),
-                          Text(
-                            '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
-                            style: TextStyle(fontSize: 18, color: Colors.grey),
+                        ),
+                        SizedBox(height: 40),
+                        model != null
+                            ? (model!.order!.length != 0)
+                            ? ListView.builder(
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          itemCount: ShopCubit.get(context)
+                              .todayOrders!
+                              .order!
+                              .length,
+                          itemBuilder: (context, index) {
+                            return todayOrderFinesh(model!.order![index]);
+                          },
+                        )
+                            : Center(
+                          child: Text(
+                            'لا يوجد طلبات اليوم   !!!!!',
+                            style: TextStyle(fontSize: 20),
                           ),
-                        ],
-                      ),
+                        )
+                            : Padding(
+                          padding: const EdgeInsets.only(top: 120),
+                          child: Center(child: CircularProgressIndicator()),
+                        )
+                      ],
                     ),
-                    SizedBox(height: 40),
-                    model != null
-                        ? (model!.order!.length != 0)
-                        ? ListView.builder(
-                      controller: scrollController,
-                      shrinkWrap: true,
-                      itemCount: ShopCubit.get(context)
-                          .todayOrders!
-                          .order!
-                          .length,
-                      itemBuilder: (context, index) {
-                        return todayOrderFinesh(model!.order![index]);
-                      },
-                    )
-                        : Center(
-                      child: Text(
-                        'لا يوجد طلبات اليوم   !!!!!',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    )
-                        : Padding(
-                      padding: const EdgeInsets.only(top: 120),
-                      child: Center(child: CircularProgressIndicator()),
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),

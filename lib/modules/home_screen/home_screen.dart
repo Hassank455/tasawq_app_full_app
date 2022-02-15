@@ -34,22 +34,37 @@ class _HomeScreenState extends State<HomeScreen> {
   int? index;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
+  void time()async{
+    new Timer.periodic(Duration(seconds: 5), (Timer t) => setState((){
+      // ShopCubit.get(context).todayOrders!;
+      // ShopCubit.get(context).getTodayOrder();
+      //  ShopCubit.get(context).getBalance();
+      ShopCubit.get(context).postUserTrack();
+      print('ddddd');
+      print(ShopCubit.get(context).profile?.user?.name);
+      ShopCubit.get(context).getNewOrder();
+    }));
+  }
   @override
   void initState() {
     super.initState();
-    new Timer.periodic(Duration(seconds: 3), (Timer t) => setState((){
-      ShopCubit.get(context).todayOrders!;
-      ShopCubit.get(context).getTodayOrder();
-      ShopCubit.get(context).getBalance();
-      ShopCubit.get(context).postUserTrack();
-      ShopCubit.get(context).getNewOrder();
-    }));
+    time();
+
+
 
     PushNotificationService pushNotificationService = PushNotificationService(order2: order3,index:index );
     pushNotificationService.initialize(context,order3!);
     //pushNotificationService.getToken();
   }
 
+
+  @override
+  void dispose() {
+    ShopCubit.get(context).postUserTrack();
+    time();
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     NewOrder? model;
@@ -80,18 +95,29 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 220,
                               color: defaultColor,
                               alignment: Alignment.topCenter,
-                              padding: EdgeInsets.only(top: 40),
-                              child: Text(
-                                'تسوق ديلفري',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold),
+                              padding: EdgeInsets.only(top: 30),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'تسوق ديلفري',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    ShopCubit.get(context).profile?.user?.name ?? '',
+                                    style: TextStyle(color: Colors.white,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+
+                                ],
                               ),
                             ),
                             Center(
                               child: containerHomePage(
-                                margin: EdgeInsets.only(top: 100),
+                                margin: EdgeInsets.only(top: 130),
                                 width: 300,
                                 height: 200,
                                 decoration: BoxDecoration(
@@ -235,13 +261,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 100,
                         height: 32,
                         function: () {
-                          Navigator.push(
+                          // initState();
+                    //      dispose();
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => BillScreen(
                                       order: model,
                                       index :index
-                                  )));
+                                  ))
+                          );
                         },
                         text: 'التفاصيل',
                         style: TextStyle(color: Colors.white, fontSize: 16),

@@ -78,13 +78,13 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
        // print(state.confirmReceive.msg);
         print(confirmReceive!.msg);
         if (confirmReceive!.status!) {
+          Navigator.pop(context);
           showToast(
               text: 'تم تاكيد الاستلام',
               state: ToastStates.SUCCESS);
           setState(() {
             widget.order?.status!;
           });
-          Navigator.pop(context);
         } else {
           showToast(
               text: '${confirmReceive?.msg ?? ''}', state: ToastStates.ERROR);
@@ -116,19 +116,19 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
                       'assets/images/checkout.png',
                     ),
                     Text(
-                      "تأكيد استلام المنتج",
+                      "تأكيد استلام الطلب",
                       style: TextStyle(fontSize: 26, color: Color(0xFF4A4B4D)),
                     ),
                     SizedBox(
                       height: 25,
                     ),
                     Text(
-                      "سعر المنتجات",
+                      "سعر الطلبات",
                       style: TextStyle(fontSize: 17, color: Color(0xFF4A4B4D)),
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "المبلغ الذي تم دفعه ثمن المنتجات",
+                      "المبلغ الذي تم دفعه ثمن الطلبات",
                       style: TextStyle(fontSize: 15, color: Color(0xFF6A6A6A)),
                     ),
                     SizedBox(height: 15),
@@ -182,7 +182,7 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
                           },
                         ),
                         Text(
-                          "فى حال لم تدفع سعر المنتجات حدد هذا الخيار",
+                          "فى حال لم تدفع سعر الطلبات حدد هذا الخيار",
                           style:
                               TextStyle(fontSize: 14, color: Color(0xFFFC6011)),
                         ),

@@ -34,6 +34,8 @@ class GoAddressScreen extends StatefulWidget {
   _GoAddressScreenState createState() => _GoAddressScreenState();
 }
 
+
+
 class _GoAddressScreenState extends State<GoAddressScreen> {
   var myMarkers = HashSet<Marker>();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -63,8 +65,8 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
           color: Colors.blue,
           width: 4,
           points: [
-            */ /*     LatLng(31.51185984005637, 34.43524073950763),
-          LatLng(31.514612948959932, 34.43978976578175),*/ /*
+            / /     LatLng(31.51185984005637, 34.43524073950763),
+          LatLng(31.514612948959932, 34.43978976578175),/ /
             LatLng(fromlatudide1, fromlongtuide1),
             LatLng(tolatudide1, tolongtuid1e),
           ],
@@ -75,6 +77,30 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
           destination: LatLng(tolatudide1, tolongtuid1e));
       setState(() => _info = directions);
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    new Timer.periodic(Duration(seconds: 5), (Timer t) => setState((){
+      // ShopCubit.get(context).todayOrders!;
+      // ShopCubit.get(context).getTodayOrder();
+      //  ShopCubit.get(context).getBalance();
+      ShopCubit.get(context).postTrackUser(
+        id: widget.order?.id,
+        lat: currentPosition?.longitude.toString(),
+        lng: currentPosition?.latitude.toString(),
+      );
+      //  ShopCubit.get(context).getNewOrder();
+    }));
+  }
+
+  @override
+  void dispose() {
+    ShopCubit.get(context).postTrackUser();
+    super.dispose();
+
   }
 
   @override
@@ -213,9 +239,9 @@ class _GoAddressScreenState extends State<GoAddressScreen> {
                   SizedBox(height: 20),
                   //  (widget.order!.status == 0)
                   (ShopCubit.get(context)
-                      .newOrders!.order2![widget.index!]
+                      .newOrders!.order2?[widget.index!]
                       .status) == 0 || (ShopCubit.get(context)
-                      .newOrders!.order2![widget.index!]
+                      .newOrders!.order2?[widget.index!]
                       .status) == 1
                       ? defaultButton(
                       function: () async {

@@ -47,7 +47,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-  Widget? widget;
+  String? widget;
 
   if (!kIsWeb) {
     channel = const AndroidNotificationChannel(
@@ -78,11 +78,11 @@ void main() async {
 
   if (onBoarding != null) {
     if (token != null)
-      widget = BottomHomeScreen();
+      widget ='/bottomHomeScreen';
     else
-      widget = LoginScreen();
+      widget = '/homeScreen';
   } else {
-    widget = SplashScreen();
+    widget = "/splashScreen";
   }
 
   runApp(MyApp(
@@ -91,7 +91,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final Widget? startWidget;
+  final String? startWidget;
 
   MyApp({
     this.startWidget,
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => ShopCubit()
             ..getTodayOrder()
-            ..getBalance()..getProfile(),
+            ..getBalance()..getProfile()..getNewOrder(),
         ),
         BlocProvider<ShopLoginCubit>(
           create: (BuildContext context) => ShopLoginCubit(),
@@ -121,7 +121,14 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: startWidget,
+           // home: startWidget,
+            initialRoute: startWidget,
+            routes: {
+              '/splashScreen': (context)=>SplashScreen() ,
+              '/bottomHomeScreen': (context)=>BottomHomeScreen() ,
+              '/homeScreen': (context)=>HomeScreen() ,
+              '/bill': (context)=> BillScreen(),
+            },
 
             //  home: LoginScreen(),
             // home: WelcomeScreen(),

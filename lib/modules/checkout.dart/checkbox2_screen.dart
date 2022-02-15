@@ -78,9 +78,6 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
         print(deliverOrder!.msg);
         if (deliverOrder!.status!) {
           showToast(text: 'تم تاكيد التسليم', state: ToastStates.SUCCESS);
-        } else {
-          showToast(
-              text: '${deliverOrder?.msg ?? ''}', state: ToastStates.ERROR);
         }
         Navigator.pop(context);
         // print(ShopCubit.get(context).deliverOrder!.msg);
@@ -91,7 +88,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
 
       }
     }, builder: (context, state) {
-      // deliverOrder = ShopCubit.get(context).deliverOrder;
+      //deliverOrder = ShopCubit.get(context).deliverOrder;
       int? price = int.parse((ShopCubit.get(context)
           .newOrders!.order2![widget.index!]
           .price) ?? '0');
@@ -172,7 +169,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                               ],
                             ),
                             Text(
-                              'سعر المنتجات',
+                              'سعر الطلبات',
                               style:
                               TextStyle(fontSize: 18, color: Colors.black),
                             ),
@@ -256,7 +253,10 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 50),
-                        child: Text('الرصيد    ${widget.order?.fromBalance?.balance ?? '-'}       '),
+                        child: Text('الرصيد    ${widget.order?.fromBalance?.balance ?? '-'}       ',
+                        style:TextStyle(fontSize: 18, color: Colors.black),
+
+                        ),
                       ),
 
                       GestureDetector(
@@ -300,7 +300,9 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 50),
-                        child: Text('الرصيد    ${widget.order?.toBalance?.balance ?? '-'}       '),
+                        child: Text('الرصيد    ${widget.order?.toBalance?.balance ?? '-'}       ',
+                        style:TextStyle(fontSize: 18, color: Colors.black),
+                            ),
                       ),
                       GestureDetector(
                         onTap: () {},
