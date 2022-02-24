@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
+import 'package:tik_laen_taswaq2/shared/components/constants.dart';
 import 'package:tik_laen_taswaq2/shared/styles/color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login/cubit/cubit.dart';
 import 'login/cubit/states.dart';
@@ -145,7 +147,9 @@ class _ProfileScrrenState extends State<ProfileScrren> {
                           decoration: BoxDecoration(
                               color: defaultColor,
                               borderRadius: BorderRadius.circular(30)),
-                          function: () {
+                          function: () async{
+                            SharedPreferences preferences = await SharedPreferences.getInstance();
+                            await preferences.clear();
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

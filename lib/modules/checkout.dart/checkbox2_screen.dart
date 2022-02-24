@@ -32,6 +32,7 @@ class Checkbox2Screen extends StatefulWidget {
 }
 
 class _Checkbox2ScreenState extends State<Checkbox2Screen> {
+  bool? _isButtonDisabled= true ;
   var paidController2 = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
 
@@ -44,7 +45,6 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
       selectedValue = val;
     });
   }
-
 
 
 
@@ -342,6 +342,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                   ),
                   SizedBox(height: 30),
                   defaultButton(
+
                     width: 330,
                     decoration: BoxDecoration(
                         color: defaultColor,
