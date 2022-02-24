@@ -33,7 +33,7 @@ class Checkbox2Screen extends StatefulWidget {
 }
 
 class _Checkbox2ScreenState extends State<Checkbox2Screen> {
-  bool isButtonDisabled= false;
+   bool isButtonClick= true;
   var paidController2 = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
 
@@ -79,14 +79,12 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
         print(deliverOrder!.msg);
         if (deliverOrder!.status!) {
           showToast(text: 'تم تاكيد التسليم', state: ToastStates.SUCCESS);
-          isButtonDisabled = false;
         }
         Navigator.pop(context);
         // print(ShopCubit.get(context).deliverOrder!.msg);
         // showToast(text: '${ShopCubit.get(context).deliverOrder!.msg}', state: ToastStates.SUCCESS);
       } else if (state is ShopErrorDeliverOrderState) {
         showToast(text: '${deliverOrder?.msg ?? ''}', state: ToastStates.ERROR);
-        isButtonDisabled = false;
         //showToast(text: '${ShopCubit.get(context).deliverOrder!.msg}', state: ToastStates.ERROR);
 
       }
@@ -344,75 +342,92 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                     ],
                   ),
                   SizedBox(height: 28.h),
-                 isButtonDisabled ? Container()  :defaultButton(
 
+                 defaultButton(
                     width: 330,
                     decoration: BoxDecoration(
                         color: defaultColor,
                         borderRadius: BorderRadius.circular(30)),
                     function: () async {
-                      position = await Geolocator.getCurrentPosition(
-                          desiredAccuracy: LocationAccuracy.high) ;
-                      print('@#@#@#');
-                      print(position?.latitude.toString());
-                      print(position?.longitude.toString());
-                      if ((ShopCubit.get(context)
-                          .newOrders!.order2![widget.index!]
-                          .price) == null) {
-                        showToast(
-                            text: 'يرجى طلب التسعير', state: ToastStates.ERROR);
-                        Navigator.pop(context);
-                      } else {
-                        if (paidController2.text.isNotEmpty && idRemain == 1) {
-                          ShopCubit.get(context).postDeliverOrder(
-                            widget.order!.id!,
-                            paidController2.text.toString(),
-                            widget.order!.fromId!.id.toString(),
-                            productPriceController.text.toString(),
-                              position!.latitude.toString(),
-                              position!.longitude.toString()
-                          );
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BottomHomeScreen()));
+                      if(isButtonClick){
+
+                        position = await Geolocator.getCurrentPosition(
+                            desiredAccuracy: LocationAccuracy.high) ;
+                        print('@#@#@#');
+                        print(position?.latitude.toString());
+                        print(position?.longitude.toString());
+                        if ((ShopCubit.get(context)
+                            .newOrders!.order2![widget.index!]
+                            .price) == null) {
                           showToast(
-                              text: 'تم تاكيد التسليم',
-                              state: ToastStates.SUCCESS);
-                          /* print(
+                              text: 'يرجى طلب التسعير', state: ToastStates.ERROR);
+                          Navigator.pop(context);
+                        } else {
+                          if (paidController2.text.isNotEmpty && idRemain == 1) {
+                            Duration time = Duration(seconds: 8);
+                            setState(() {
+                              isButtonClick = false;                     //make the button disable to making variable false.
+                              print("Clicked Once");
+                              print(isButtonClick);
+
+                              Future.delayed(time,(){
+                                setState(() {
+                                  isButtonClick = true;                    //future delayed to change the button back to clickable
+                                });
+                              });
+                            });
+
+                            ShopCubit.get(context).postDeliverOrder(
+                                widget.order!.id!,
+                                paidController2.text.toString(),
+                                widget.order!.fromId!.id.toString(),
+                                productPriceController.text.toString(),
+                                position!.latitude.toString(),
+                                position!.longitude.toString()
+                            );
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BottomHomeScreen()));
+                            showToast(
+                                text: 'تم تاكيد التسليم',
+                                state: ToastStates.SUCCESS);
+                            /* print(
                                   '${deliverOrder!.orderDeliver!.id} ${deliverOrder!.orderDeliver!.remain}');*/
-                          /*ShopCubit.get(context).postDeliverOrder(
+                            /*ShopCubit.get(context).postDeliverOrder(
                                   ShopCubit.get(context).deliverOrder!.orderDeliver!.id!,
                                   paidController2.text.toString(),
                                   ShopCubit.get(context).deliverOrder!.orderDeliver?.remain ?? 'remain');*/
-                          print(
-                              '${widget.order!.id!}  ${paidController2.text} ${widget.order!.remain ?? 'remain'}');
-                        } else if(paidController2.text.isNotEmpty && idRemain == 2){
-                          ShopCubit.get(context).postDeliverOrder(
-                            widget.order!.id!,
-                            paidController2.text.toString(),
-                            widget.order!.toId!.id.toString(),
-                            productPriceController.text.toString(),
-                            position!.latitude.toString(),
-                            position!.longitude.toString()
+                            print(
+                                '${widget.order!.id!}  ${paidController2.text} ${widget.order!.remain ?? 'remain'}');
+                          } else if(paidController2.text.isNotEmpty && idRemain == 2){
+                            ShopCubit.get(context).postDeliverOrder(
+                                widget.order!.id!,
+                                paidController2.text.toString(),
+                                widget.order!.toId!.id.toString(),
+                                productPriceController.text.toString(),
+                                position!.latitude.toString(),
+                                position!.longitude.toString()
 
-                          );
-                          print(widget.order!.toId!.id.toString());
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BottomHomeScreen()));
-                          showToast(
-                              text: 'تم تاكيد التسليم',
-                              state: ToastStates.SUCCESS);
-                              isButtonDisabled= false;
-                        }else {
+                            );
+                            print(widget.order!.toId!.id.toString());
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BottomHomeScreen()));
+                            showToast(
+                                text: 'تم تاكيد التسليم',
+                                state: ToastStates.SUCCESS);
+                          }else {
 
-                          showToast(
-                              text: 'يرجى ادخال رقم او اختيار احد المستخدمين',
-                              state: ToastStates.ERROR);
+                            showToast(
+                                text: 'يرجى ادخال رقم او اختيار احد المستخدمين',
+                                state: ToastStates.ERROR);
+                          }
                         }
+
                       }
+
                     },
                     text: 'تاكيد',
                     style: TextStyle(

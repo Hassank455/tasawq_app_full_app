@@ -184,7 +184,7 @@ Widget containerBillScreen(
     int? id}) {
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.all(20.h),
+    margin: EdgeInsets.all(18.h),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -199,7 +199,7 @@ Widget containerBillScreen(
               ),
             ),
             Container(
-              width: 220.w,
+              width: 218.w,
               child: Text(
                 address ?? '-',
                 style: TextStyle(fontSize: 16.sp),

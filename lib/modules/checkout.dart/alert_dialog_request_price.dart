@@ -25,6 +25,7 @@ class _AlertDialogRequestPriceState extends State<AlertDialogRequestPrice> {
     super.initState();
 
   }
+  bool isButtonClickable = true;
   @override
   Widget build(BuildContext context) {
     var noteController = TextEditingController();
@@ -83,23 +84,42 @@ class _AlertDialogRequestPriceState extends State<AlertDialogRequestPrice> {
                   decoration: BoxDecoration(
                       color: defaultColor,
                       borderRadius: BorderRadius.circular(30)),
-                  function: () {
-                    if(noteController.text.isNotEmpty){
-                      ShopCubit.get(context).getRequestPrice(widget.order!.id!,noteController.text);
-                      // setState(() {
-                      //   widget.order!.status!;
-                      //   widget.order!.id!;
-                      //   widget.order!.price;
-                      //
-                      // });
-                      setState(() {
-                        widget.order!.status!;
-                      });
-                    }else{
-                      showToast(
-                          text: 'ثم بتعبئة الملاحظات',
-                          state: ToastStates.ERROR);
+                  function: () async{
+                    if(isButtonClickable){
+                      if(noteController.text.isNotEmpty){
+                        Duration time = Duration(seconds: 8);
+                        setState(() {
+                          isButtonClickable = false;                     //make the button disable to making variable false.
+                          print("Clicked Once");
+                          print(isButtonClickable);
+
+                          Future.delayed(time,(){
+                            setState(() {
+                              isButtonClickable = true;                    //future delayed to change the button back to clickable
+                            });
+                          });
+                        });
+
+                        ShopCubit.get(context).getRequestPrice(widget.order!.id!,noteController.text);
+                        // setState(() {
+                        //   widget.order!.status!;
+                        //   widget.order!.id!;
+                        //   widget.order!.price;
+                        //
+                        // });
+                        setState(() {
+                          widget.order!.status!;
+                        });
+                      }else{
+                        print("isButtonClickable");
+                        print(isButtonClickable);
+                        showToast(
+                            text: 'ثم بتعبئة الملاحظات',
+                            state: ToastStates.ERROR);
+
+                      }
                     }
+
                   },
                   text: 'ارسال',
                   style: TextStyle(

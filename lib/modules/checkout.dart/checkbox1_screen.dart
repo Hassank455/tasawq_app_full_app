@@ -59,7 +59,7 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
         desiredAccuracy: LocationAccuracy.high) ;
     super.didChangeDependencies();
   }*/
-
+  bool isButtonClickable = true;
 
   @override
   Widget build(BuildContext context) {
@@ -195,31 +195,48 @@ class _CheckboxScreenState extends State<Checkbox1Screen> {
                           color: defaultColor,
                           borderRadius: BorderRadius.circular(30)),
                       function: ()  async{
-                        position = await Geolocator.getCurrentPosition(
-                            desiredAccuracy: LocationAccuracy.high) ;
-                        print('@#@#@#');
-                       print(position?.latitude.toString());
-                            print(position?.longitude.toString());
 
-                        print('postConfirmReceive');
+                        if(isButtonClickable){
 
-                        print(
-                            '${widget.order!.id} paid: $paid ${paidController.text}');
-                        if (paidController.text.isNotEmpty) {
-                          ShopCubit.get(context).postConfirmReceive(
-                            widget.order!.id!,
-                            widget.order?.price ?? '',
-                            paidController.text,
-                            widget.order?.paid ?? 0,
-                            position!.latitude.toString(),
-                            position!.longitude.toString()
-                          );
+                          position = await Geolocator.getCurrentPosition(
+                              desiredAccuracy: LocationAccuracy.high) ;
+                          print('@#@#@#');
+                          print(position?.latitude.toString());
+                          print(position?.longitude.toString());
 
-                          // print('${ShopCubit.get(context).confirmReceive!.order!.id}');
-                        } else {
-                          showToast(
-                              text: 'ادخل المبلغ الذي تود دفعه',
-                              state: ToastStates.ERROR);
+                          print('postConfirmReceive');
+
+                          print(
+                              '${widget.order!.id} paid: $paid ${paidController.text}');
+                          if (paidController.text.isNotEmpty) {
+                            Duration time = Duration(seconds: 8);
+                            setState(() {
+                              isButtonClickable = false;                     //make the button disable to making variable false.
+                              print("Clicked Once");
+                              print(isButtonClickable);
+
+                              Future.delayed(time,(){
+                                setState(() {
+                                  isButtonClickable = true;                    //future delayed to change the button back to clickable
+                                });
+                              });
+                            });
+                            ShopCubit.get(context).postConfirmReceive(
+                                widget.order!.id!,
+                                widget.order?.price ?? '',
+                                paidController.text,
+                                widget.order?.paid ?? 0,
+                                position!.latitude.toString(),
+                                position!.longitude.toString()
+                            );
+
+                            // print('${ShopCubit.get(context).confirmReceive!.order!.id}');
+                          } else {
+                            showToast(
+                                text: 'ادخل المبلغ الذي تود دفعه',
+                                state: ToastStates.ERROR);
+                          }
+
                         }
 
                       },

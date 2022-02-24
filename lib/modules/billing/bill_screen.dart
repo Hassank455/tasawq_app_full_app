@@ -28,6 +28,9 @@ class BillScreen extends StatefulWidget {
 var refreshKey = GlobalKey<RefreshIndicatorState>();
 
 class _BillScreenState extends State<BillScreen> {
+  bool isButtonClickableAccept = true;
+  bool isButtonClickableDismissed = true;
+
   Position? currentPosition;
 
   Future<void> getMyLocation() async {
@@ -242,29 +245,43 @@ class _BillScreenState extends State<BillScreen> {
                                             borderRadius:
                                             BorderRadius.circular(30)),
                                         function: () {
+                                           if(isButtonClickableAccept){
+                                             Duration time = Duration(seconds: 8);
+                                             setState(() {
+                                               isButtonClickableAccept = false;                     //make the button disable to making variable false.
+                                               print("Clicked Once");
+                                               print(isButtonClickableAccept);
 
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      GoAddressScreen(
-                                                          order: widget.order,
-                                                          index:widget.index)));
-                                          ShopCubit.get(context)
-                                              .postAcceptOrder(widget.order!.id!);
-                                          ShopCubit.get(context).postTrackUser(id:widget.order?.id);
-                                          ShopCubit.get(context).postTrackUser(
-                                            id: (ShopCubit.get(context)
-                                                .newOrders!.order2![widget.index!].id),
-                                            lat: currentPosition?.longitude.toString(),
-                                            lng: currentPosition?.latitude.toString(),
-                                          );
+                                               Future.delayed(time,(){
+                                                 setState(() {
+                                                   isButtonClickableAccept = true;                    //future delayed to change the button back to clickable
+                                                 });
+                                               });
+                                             });
+                                             Navigator.push(
+                                                 context,
+                                                 MaterialPageRoute(
+                                                     builder: (context) =>
+                                                         GoAddressScreen(
+                                                             order: widget.order,
+                                                             index:widget.index)));
+                                             ShopCubit.get(context)
+                                                 .postAcceptOrder(widget.order!.id!);
+                                             ShopCubit.get(context).postTrackUser(id:widget.order?.id);
+                                             ShopCubit.get(context).postTrackUser(
+                                               id: (ShopCubit.get(context)
+                                                   .newOrders!.order2![widget.index!].id),
+                                               lat: currentPosition?.longitude.toString(),
+                                               lng: currentPosition?.latitude.toString(),
+                                             );
 
 
-                                          /*
+                                             /*
                                           ShopCubit.get(context)
                                               .getTodayOrder();
                                         */
+
+                                           }
 
                                         },
                                         text: 'قبول الطلب',
@@ -275,8 +292,24 @@ class _BillScreenState extends State<BillScreen> {
                                       ),
                                       SizedBox(height: 18.h),
                                       TextButton(
-                                        onPressed: () =>
-                                            show(context, widget.order!),
+                                        onPressed: () {
+                                          if(isButtonClickableDismissed){
+                                            show(context, widget.order!);
+                                            Duration time = Duration(seconds: 8);
+                                            setState(() {
+                                              isButtonClickableDismissed = false;                     //make the button disable to making variable false.
+                                              print("Clicked Once");
+                                              print(isButtonClickableDismissed);
+
+                                              Future.delayed(time,(){
+                                                setState(() {
+                                                  isButtonClickableDismissed = true;                    //future delayed to change the button back to clickable
+                                                });
+                                              });
+                                            });
+                                          }
+
+                                        },
                                         child: Text(
                                           "رفض الطلب",
                                           style: TextStyle(
