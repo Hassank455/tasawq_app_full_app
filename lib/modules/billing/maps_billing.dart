@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 
@@ -38,7 +39,7 @@ class _MapsBillingState extends State<MapsBilling> {
       appBar: AppBar(
         title: Text(
           'اظهار الموقع',
-          style: TextStyle(fontSize: 22),
+          style: TextStyle(fontSize: 20.sp),
         ),
         centerTitle: true,
         backgroundColor: defaultColor,

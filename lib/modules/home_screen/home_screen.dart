@@ -18,7 +18,7 @@ import 'package:tik_laen_taswaq2/shared/network/Notification/pushNotificationSer
 import 'package:tik_laen_taswaq2/shared/styles/color.dart';
 
 import 'alert_dialog.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -32,12 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Order4? order3 = Order4();
   Timer? timer;
   int? index;
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   void time()async{
     new Timer.periodic(Duration(seconds: 5), (Timer t) => setState((){
       // ShopCubit.get(context).todayOrders!;
-      // ShopCubit.get(context).getTodayOrder();
+      ShopCubit.get(context).getNewOrder();
       //  ShopCubit.get(context).getBalance();
       ShopCubit.get(context).postUserTrack();
       print('ddddd');
@@ -65,8 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
 
   }
+
   @override
   Widget build(BuildContext context) {
+
     NewOrder? model;
     Balance? balance;
     return BlocConsumer<ShopCubit, ShopStates>(
@@ -92,17 +95,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             containerHomePage(
                               width: double.infinity,
-                              height: 220,
+                              height: 200.h,
                               color: defaultColor,
                               alignment: Alignment.topCenter,
-                              padding: EdgeInsets.only(top: 30),
+                              padding: EdgeInsets.only(top: 20),
                               child: Column(
                                 children: [
                                   Text(
                                     'تسوق ديلفري',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 22,
+                                        fontSize: 22.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(

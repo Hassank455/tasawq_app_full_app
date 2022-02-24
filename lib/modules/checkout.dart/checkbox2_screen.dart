@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:tik_laen_taswaq2/layout/bottom_home_screen.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
@@ -105,40 +106,40 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
             children: [
               SizedBox(height: 30),
               Padding(
-                padding: const EdgeInsets.only(right: 15, left: 15),
+                padding:  EdgeInsets.only(right: 15.h, left: 15.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       alignment: Alignment.topRight,
-                      padding: EdgeInsets.only(right: 15),
+                      padding: EdgeInsets.only(right: 15.h),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                         },
                         child: Icon(
                           Icons.close,
-                          size: 30,
+                          size: 28.h,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 18.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'فاتورة التسليم',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 18.sp),
                   ),
                   Column(
                     children: [
                       Padding(
                         padding:
-                        const EdgeInsets.only(right: 18, left: 18, top: 18),
+                         EdgeInsets.only(right: 18.h, left: 18.h, top: 18.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -147,9 +148,9 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                                 Text(
                                   'NIS',
                                 ),
-                                SizedBox(width: 20),
+                                SizedBox(width: 18.h),
                                 Container(
-                                  width: 70,
+                                  width: 68.w,
                                   child: TextFormField(
                                     //controller: productPriceController,
                                     controller: productPriceController,
@@ -162,7 +163,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            width: 1, color: Colors.grey),
+                                            width: 1.w, color: Colors.grey),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                     ),
@@ -173,13 +174,13 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                             Text(
                               'سعر الطلبات',
                               style:
-                              TextStyle(fontSize: 18, color: Colors.black),
+                              TextStyle(fontSize: 18.sp, color: Colors.black),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(18.0),
+                        padding:  EdgeInsets.all(18.0.h),
                         child: RowTodayOrder2(
                           text1: 'تكلفة التوصيل',
                           numberText: (ShopCubit.get(context)
@@ -193,7 +194,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                       myDivider(width: 360),
                       Padding(
                         padding:
-                        const EdgeInsets.only(right: 28, left: 18, top: 10),
+                         EdgeInsets.only(right: 28.w, left: 18.w, top: 10.h),
                         child: RowTodayOrder2(
                           text1: 'الاجمالي',
                           numberText:
@@ -205,19 +206,19 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                       )
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 27.h),
                   Text(
                     'المبلغ الاجمالي المستلم ',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20.sp),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   /*Text(
                     'المبلغ الذي تم تحصيله من الزبون',
                     style: TextStyle(fontSize: 19, color: Colors.grey),
                   ),*/
-                  SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Padding(
-                    padding: const EdgeInsets.only(right: 50, left: 50),
+                    padding:  EdgeInsets.only(right: 50.h, left: 50.h),
                     child: TextField(
                       enabled: (ShopCubit.get(context)
                           .newOrders!.order2![widget.index!]
@@ -229,7 +230,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                         suffix: Text(
                           "NIS",
                           style:
-                          TextStyle(fontSize: 20, color: Color(0xFF6A6A6A)),
+                          TextStyle(fontSize: 20.sp, color: Color(0xFF6A6A6A)),
                         ),
                         hintText: "00:00",
                         hintStyle:
@@ -256,7 +257,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 50),
                         child: Text('الرصيد    ${widget.order?.fromBalance?.balance ?? '-'}       ',
-                        style:TextStyle(fontSize: 18, color: Colors.black),
+                        style:TextStyle(fontSize: 18.sp, color: Colors.black),
 
                         ),
                       ),
@@ -342,7 +343,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 28.h),
                  isButtonDisabled ? Container()  :defaultButton(
 
                     width: 330,
@@ -416,14 +417,14 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                     text: 'تاكيد',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 22,
+                      fontSize: 20.sp,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 18.h),
                   (widget.order!.fromAddress == null &&
                       widget.order!.toAddress == null)
                       ? defaultButton(
-                    width: 330,
+                    width: 330.w,
                     decoration: BoxDecoration(
                         color: defaultColor,
                         borderRadius: BorderRadius.circular(30)),
@@ -439,7 +440,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                     text: 'عليك الرجوع وادخال البيانات',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 22,
+                      fontSize: 20.sp,
                     ),
                   )
                       : Container(),

@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_laen_taswaq2/models/login_model.dart';
 import 'package:tik_laen_taswaq2/modules/login/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/modules/login/cubit/states.dart';
@@ -41,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const double kDefaultPadding = 20.0;
+     double kDefaultPadding = 20.0.h;
     Size size = MediaQuery.of(context).size;
 
     return BlocProvider(

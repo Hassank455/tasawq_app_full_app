@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/shared/components/components.dart';
 import 'package:tik_laen_taswaq2/shared/components/constants.dart';
@@ -58,21 +59,21 @@ class _ProfileScrrenState extends State<ProfileScrren> {
               appBar: AppBar(
                 title: Text(
                   'الملف الشخصي ',
-                  style: TextStyle(fontSize: 22),
+                  style: TextStyle(fontSize: 22.sp),
                 ),
                 centerTitle: true,
                 backgroundColor: defaultColor,
-                toolbarHeight: 80,
+                toolbarHeight: 80.h,
               ),
               body: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 10, left: 10, top: 20),
+                  padding:  EdgeInsets.only(right: 10.h, left: 10.h, top: 20.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'تغيير كلمة المرور',
-                        style: TextStyle(fontSize: 22),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
                       Form(
                         key: formKey,
@@ -115,9 +116,9 @@ class _ProfileScrrenState extends State<ProfileScrren> {
                                 }
                               },
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 8.h),
                             defaultButton(
-                              width: 220,
+                              width: 200.w,
                               decoration: BoxDecoration(
                                   color: defaultColor,
                                   borderRadius: BorderRadius.circular(30)),
@@ -125,25 +126,25 @@ class _ProfileScrrenState extends State<ProfileScrren> {
                               text: 'تغيير كلمة المرور',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 22,
+                                fontSize: 20.sp,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20.h),
                       Text(
                         'انهاء العمل  ',
-                        style: TextStyle(fontSize: 30),
+                        style: TextStyle(fontSize: 23.sp),
                       ),
                       Text(
                         'اضغط انهاء العمل لتنهي عملك',
-                        style: TextStyle(fontSize: 20, color: Colors.grey),
+                        style: TextStyle(fontSize: 17.sp, color: Colors.grey),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20.h),
                       Center(
                         child: defaultButton(
-                          width: 220,
+                          width: 200.h,
                           decoration: BoxDecoration(
                               color: defaultColor,
                               borderRadius: BorderRadius.circular(30)),
@@ -162,22 +163,22 @@ class _ProfileScrrenState extends State<ProfileScrren> {
                           text: 'انهاء العمل',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 22,
+                            fontSize: 18.sp,
                           ),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20.h),
                       Container(
                         child: Row(
                           children: [
                             Text(
                               'مبلغ التامين',
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 23.sp),
                             ),
-                            SizedBox(width: 50),
+                            SizedBox(width: 50.w),
                             Text(
                               ShopCubit.get(context).profile?.user?.insurance ?? '',
-                              style: TextStyle(fontSize: 20,color: defaultColor),
+                              style: TextStyle(fontSize: 20.sp,color: defaultColor),
                             ),
                           ],
                         ),

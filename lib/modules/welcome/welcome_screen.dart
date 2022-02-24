@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_laen_taswaq2/layout/bottom_home_screen.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
@@ -28,25 +29,25 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/Delivery vector.png',
-                height: 200,
+                height: 200.h,
                 width: double.infinity,
               ),
               Text(
                 '${CacheHelper.getData(key: 'email') ?? 'تم تسجيل بدء العمل'} اهلا بك ',
                 style:
-                TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:  EdgeInsets.all(8.0.h),
                 child: Text(
                   'اضغط على بدء العمل لتسجيل عملك بالمكتب',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20.sp),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 28.0.h),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: defaultButton(
@@ -77,11 +78,11 @@ class WelcomeScreen extends StatelessWidget {
                               .msg}', state: ToastStates.SUCCESS);*/
                     },
                     text: "بدء العمل",
-                    style: TextStyle(color: Colors.white, fontSize: 20)),
+                    style: TextStyle(color: Colors.white, fontSize: 20.sp)),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding:  EdgeInsets.symmetric(horizontal: 8.w),
                 child: TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(
@@ -91,7 +92,7 @@ class WelcomeScreen extends StatelessWidget {
                     },
                     child: Text(
                       "خروج",
-                      style: TextStyle(color: Colors.black, fontSize: 20),
+                      style: TextStyle(color: Colors.black, fontSize: 18.sp),
                     )),
               )
             ],

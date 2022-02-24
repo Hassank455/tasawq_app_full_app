@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tik_laen_taswaq2/layout/bottom_home_screen.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
@@ -21,12 +22,12 @@ Widget defualtTextFormField(
     String? hintText,
     int? maxLines}) {
   return Container(
-    margin: EdgeInsets.all(20),
+    margin: EdgeInsets.only(left: 20.h ,right: 20.h , bottom: 10.h ,top: 10.h),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(30)),
       color: Colors.grey[200],
     ),
-    padding: EdgeInsets.only(right: 0, top: 5, bottom: 5),
+    padding: EdgeInsets.only(right: 0.h, top: 5.h, bottom: 5.h),
     child: TextFormField(
       controller: controller,
       validator: validate,
@@ -55,7 +56,7 @@ Widget defualtTextFormField(
 
 Widget defaultButton(
         {double width = double.infinity,
-        double height = 55.0,
+        double height = 45.0,
         Color background = defaultColor,
         bool isUpperCase = true,
         double radius = 3.0,
@@ -64,8 +65,8 @@ Widget defaultButton(
         TextStyle? style,
         BoxDecoration? decoration}) =>
     Container(
-      width: width,
-      height: height,
+      width: width.w,
+      height: height.h,
       child: MaterialButton(
         onPressed: function,
         child: Text(
@@ -107,33 +108,33 @@ Widget myDivider({double height = 1.5, double width = double.infinity}) =>
 Widget alertDialog2(context, controller) {
   return AlertDialog(
     content: Container(
-      height: 250,
+      height: 250.h,
       child: Column(
         children: [
           Text(
             'رصيد الافتتاحية',
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 20.sp),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Text(
             'ادخل المبلغ المتوفر معك لبدء العمل',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20.sp),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
           TextFormField(
             controller: controller,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: Colors.grey),
+                borderSide: BorderSide(width: 1.w, color: Colors.grey),
                 borderRadius: BorderRadius.circular(15),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 20.h),
           defaultButton(
-            width: 270,
+            width: 270.w,
             decoration: BoxDecoration(
                 color: defaultColor, borderRadius: BorderRadius.circular(30)),
             function: () {
@@ -164,7 +165,7 @@ Widget alertDialog2(context, controller) {
             text: 'موافق',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 22,
+              fontSize: 22.sp,
             ),
           )
         ],
@@ -183,7 +184,7 @@ Widget containerBillScreen(
     int? id}) {
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.all(20),
+    margin: EdgeInsets.all(20.h),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -194,14 +195,14 @@ Widget containerBillScreen(
               name ?? '-',
               style: TextStyle(
                 color: defaultColor,
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
             ),
             Container(
-              width: 220,
+              width: 220.w,
               child: Text(
                 address ?? '-',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16.sp),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -212,7 +213,7 @@ Widget containerBillScreen(
           children: [
             (latudide != null && longtuide != null)
                 ? Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding:  EdgeInsets.all(5.0.h),
               child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -269,17 +270,17 @@ Widget RowTodayOrder(
     children: [
       Text(
         text1!,
-        style: TextStyle(fontSize: 18, color: Colors.black),
+        style: TextStyle(fontSize: 18.sp, color: Colors.black),
       ),
       Row(
         children: [
           Text(
             numberText!,
-            style: TextStyle(fontSize: 18, color: color2),
+            style: TextStyle(fontSize: 18.sp, color: color2),
           ),
           Text(
             nisText!,
-            style: TextStyle(fontSize: 12, color: color),
+            style: TextStyle(fontSize: 12.sp, color: color),
           ),
         ],
       ),
@@ -300,17 +301,17 @@ Widget RowTodayOrder2(
         children: [
           Text(
             nisText ?? '0',
-            style: TextStyle(fontSize: 12, color: color),
+            style: TextStyle(fontSize: 12.sp, color: color),
           ),
           Text(
             '${numberText ?? 0}',
-            style: TextStyle(fontSize: 18, color: color2),
+            style: TextStyle(fontSize: 18.sp, color: color2),
           ),
         ],
       ),
       Text(
         text1!,
-        style: TextStyle(fontSize: 18, color: Colors.black),
+        style: TextStyle(fontSize: 18.sp, color: Colors.black),
       ),
     ],
   );
@@ -348,7 +349,7 @@ void showToast({
       timeInSecForIosWeb: 5,
       backgroundColor: chooseToastColor(state),
       textColor: Colors.white,
-      fontSize: 16.0,
+      fontSize: 16.0.sp,
     );
 
 // enum

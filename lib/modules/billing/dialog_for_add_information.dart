@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/states.dart';
 import 'package:tik_laen_taswaq2/models/new_order.dart';
@@ -35,16 +36,16 @@ class DialogForAddInformation extends StatelessWidget {
           textDirection: TextDirection.rtl,
           child: AlertDialog(
             content: Container(
-              height: 400,
+              height: 400.h,
               child: Form(
                 key: formKey,
                 child: Column(
                   children: [
                     Text(
                       'يمكنك ادخال البيانات',
-                      style: TextStyle(fontSize: 22),
+                      style: TextStyle(fontSize: 20.sp),
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 38.h),
                     TextFormField(
                       controller: nameController,
                       keyboardType: TextInputType.text,
@@ -57,7 +58,7 @@ class DialogForAddInformation extends StatelessWidget {
                         hintText: 'ادخل الاسم',
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     TextFormField(
                       controller: phoneController,
                       keyboardType: TextInputType.phone,
@@ -70,7 +71,7 @@ class DialogForAddInformation extends StatelessWidget {
                         hintText: 'ادخل رقم الهاتف',
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     TextFormField(
                       controller: addressController,
                       keyboardType: TextInputType.text,
@@ -83,7 +84,7 @@ class DialogForAddInformation extends StatelessWidget {
                         hintText: 'ادخل العنوان',
                       ),
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     defaultButton(
                       decoration: BoxDecoration(
                           color: defaultColor,
@@ -99,7 +100,7 @@ class DialogForAddInformation extends StatelessWidget {
                       text: 'حفظ البيانات',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 22,
+                        fontSize: 20.sp,
                       ),
                     ),
                   ],

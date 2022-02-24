@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:tik_laen_taswaq2/layout/bottom_home_screen.dart';
 import 'package:tik_laen_taswaq2/layout/cubit/cubit.dart';
@@ -41,7 +42,7 @@ class _BillScreenState extends State<BillScreen> {
     return (await showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        content: new Text('هل تريد الانتفال الى الصفحة الرئيسية ؟'),
+        content:  Text('هل تريد الانتفال الى الصفحة الرئيسية ؟'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -87,19 +88,19 @@ class _BillScreenState extends State<BillScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 40),
+                            margin: EdgeInsets.only(top: 40.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 100),
+                                  padding:  EdgeInsets.only(left: 100.h),
                                   child: Text('  فاتورة #${(ShopCubit.get(context)
                                       .newOrders!.order2![widget.index!].id)}',
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 22)),
+                                          color: Colors.black, fontSize: 20.sp)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 20),
+                                  padding: const EdgeInsets.only(left: 18),
                                   child: GestureDetector(
                                       onTap: () {
                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomHomeScreen()));
@@ -109,7 +110,7 @@ class _BillScreenState extends State<BillScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 15),
+                          SizedBox(height: 13.h),
                           containerBillScreen(
                             context: context,
                             name: (ShopCubit.get(context)
@@ -125,9 +126,9 @@ class _BillScreenState extends State<BillScreen> {
                             id: (ShopCubit.get(context)
                                 .newOrders!.order2![widget.index!].toAddress?.id),
                           ),
-                          SizedBox(height: 15),
-                          Center(child: myDivider(width: 360)),
-                          SizedBox(height: 15),
+                          SizedBox(height: 13.h),
+                          Center(child: myDivider(width: 360.w)),
+                          SizedBox(height: 13.h),
                           ((ShopCubit.get(context)
                               .newOrders!.order2![widget.index!].toId) != null &&
                               (ShopCubit.get(context)
@@ -158,62 +159,62 @@ class _BillScreenState extends State<BillScreen> {
                                           DialogForAddInformation(order: widget.order,),
                                     );
                                   },
-                                  child: Icon(Icons.add, size: 40))),
+                                  child: Icon(Icons.add, size: 35.h))),
 
-                          SizedBox(height: 15),
+                          SizedBox(height: 13.h),
                           myDivider(width: double.infinity, height: 8),
                           Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding:  EdgeInsets.all(18.0.h),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'التفاصيل',
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: 18.sp),
                                 ),
                                 Text(
                                   (ShopCubit.get(context)
                                       .newOrders!.order2![widget.index!].details) ?? '-',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: 12.sp),
                                 ),
                               ],
                             ),
                           ),
-                          Center(child: myDivider(width: 350)),
+                          Center(child: myDivider(width: 350.w)),
                           Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding:  EdgeInsets.all(20.0.h),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'ملاحظة',
-                                  style: TextStyle(fontSize: 20, color: defaultColor),
+                                  style: TextStyle(fontSize: 18.sp, color: defaultColor),
                                 ),
                                 Text(
                                   (ShopCubit.get(context)
                                       .newOrders!.order2![widget.index!].notes) ?? '-',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: 14.sp),
                                 ),
                               ],
                             ),
                           ),
-                          myDivider(width: double.infinity, height: 8),
+                          myDivider(width: double.infinity, height: 8.h),
                           Container(
-                            padding: EdgeInsets.only(right: 20, left: 20),
+                            padding: EdgeInsets.only(right: 20.h, left: 20.h),
                             child: Column(
                               children: [
                                 RowTodayOrder(
                                     text1: 'مبلغ الطلبية',
                                     numberText: '$paidPriceSum',
                                     nisText: ' NIS '),
-                                SizedBox(height: 5),
+                                SizedBox(height: 5.h),
                                 RowTodayOrder(
                                     text1: 'تكلفة التوصيل',
                                     numberText: '$priceSum  ',
                                     nisText: ' NIS '),
-                                SizedBox(height: 15),
-                                myDivider(width: 380),
-                                SizedBox(height: 10),
+                                SizedBox(height: 15.h),
+                                myDivider(width: 380.w),
+                                SizedBox(height: 10.h),
                                 RowTodayOrder(
                                     text1: 'الاجمالي',
                                     numberText: '${paidPriceSum + priceSum} ',
@@ -223,9 +224,9 @@ class _BillScreenState extends State<BillScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 18.h),
                           myDivider(width: double.infinity, height: 8),
-                          SizedBox(height: 20),
+                          SizedBox(height: 17.h),
                           Center(
                               child: Column(
                                 children: [
@@ -269,17 +270,17 @@ class _BillScreenState extends State<BillScreen> {
                                         text: 'قبول الطلب',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 22,
+                                          fontSize: 19.sp,
                                         ),
                                       ),
-                                      SizedBox(height: 20),
+                                      SizedBox(height: 18.h),
                                       TextButton(
                                         onPressed: () =>
                                             show(context, widget.order!),
                                         child: Text(
                                           "رفض الطلب",
                                           style: TextStyle(
-                                              color: Colors.black, fontSize: 20),
+                                              color: Colors.black, fontSize: 20.sp),
                                         ),
                                       )
                                     ],
@@ -293,7 +294,7 @@ class _BillScreenState extends State<BillScreen> {
                                       ? Column(
                                     children: [
                                       defaultButton(
-                                        width: 330,
+                                        width: 330.w,
                                         decoration: BoxDecoration(
                                             color: defaultColor,
                                             borderRadius:
@@ -313,13 +314,13 @@ class _BillScreenState extends State<BillScreen> {
                                         text: 'اتمام الطلب',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 22,
+                                          fontSize: 20.sp,
                                         ),
                                       ),
                                     ],
                                   )
                                       : Container(),
-                                  SizedBox(height: 180),
+                                  SizedBox(height: 176.h),
                                 ],
                               )),
                         ],

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tik_laen_taswaq2/models/today_orders.dart';
 import 'package:tik_laen_taswaq2/modules/login/cubit/states.dart';
@@ -42,12 +42,10 @@ void main() async {
 
   await Firebase.initializeApp();
 
-
-
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-  Widget widget;
+  Widget? widget;
 
   if (!kIsWeb) {
     channel = const AndroidNotificationChannel(
@@ -80,7 +78,7 @@ void main() async {
     if (token != null)
       widget = BottomHomeScreen();
     else
-      widget = HomeScreen();
+      widget = LoginScreen();
   } else {
     widget = SplashScreen();
   }
@@ -110,7 +108,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => ShopCubit()
             ..getTodayOrder()
-            ..getBalance()..getProfile()..getNewOrder(),
+            ..getBalance()..getProfile(),
         ),
         BlocProvider<ShopLoginCubit>(
           create: (BuildContext context) => ShopLoginCubit(),
@@ -119,19 +117,17 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-           // home: startWidget,
-            home: startWidget,
-            routes: {
-              '/splashScreen': (context)=>SplashScreen() ,
-              '/bottomHomeScreen': (context)=>BottomHomeScreen() ,
-              '/homeScreen': (context)=>HomeScreen() ,
-              '/bill': (context)=> BillScreen(),
-            },
+          return ScreenUtilInit(
+            designSize: Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: () => MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: startWidget,
 
-            //  home: LoginScreen(),
-            // home: WelcomeScreen(),
+              //  home: LoginScreen(),
+              // home: WelcomeScreen(),
+            ),
           );
         },
       ),
