@@ -47,7 +47,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-  String? widget;
+  Widget widget;
 
   if (!kIsWeb) {
     channel = const AndroidNotificationChannel(
@@ -78,11 +78,11 @@ void main() async {
 
   if (onBoarding != null) {
     if (token != null)
-      widget ='/bottomHomeScreen';
+      widget = BottomHomeScreen();
     else
-      widget = '/homeScreen';
+      widget = HomeScreen();
   } else {
-    widget = "/splashScreen";
+    widget = SplashScreen();
   }
 
   runApp(MyApp(
@@ -91,7 +91,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final String? startWidget;
+  final Widget? startWidget;
 
   MyApp({
     this.startWidget,
@@ -122,7 +122,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
            // home: startWidget,
-            initialRoute: startWidget,
+            home: startWidget,
             routes: {
               '/splashScreen': (context)=>SplashScreen() ,
               '/bottomHomeScreen': (context)=>BottomHomeScreen() ,

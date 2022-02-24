@@ -32,7 +32,7 @@ class Checkbox2Screen extends StatefulWidget {
 }
 
 class _Checkbox2ScreenState extends State<Checkbox2Screen> {
-  bool? _isButtonDisabled= true ;
+  bool isButtonDisabled= false;
   var paidController2 = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
 
@@ -78,12 +78,14 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
         print(deliverOrder!.msg);
         if (deliverOrder!.status!) {
           showToast(text: 'تم تاكيد التسليم', state: ToastStates.SUCCESS);
+          isButtonDisabled = false;
         }
         Navigator.pop(context);
         // print(ShopCubit.get(context).deliverOrder!.msg);
         // showToast(text: '${ShopCubit.get(context).deliverOrder!.msg}', state: ToastStates.SUCCESS);
       } else if (state is ShopErrorDeliverOrderState) {
         showToast(text: '${deliverOrder?.msg ?? ''}', state: ToastStates.ERROR);
+        isButtonDisabled = false;
         //showToast(text: '${ShopCubit.get(context).deliverOrder!.msg}', state: ToastStates.ERROR);
 
       }
@@ -341,7 +343,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                     ],
                   ),
                   SizedBox(height: 30),
-                  defaultButton(
+                 isButtonDisabled ? Container()  :defaultButton(
 
                     width: 330,
                     decoration: BoxDecoration(
@@ -402,7 +404,7 @@ class _Checkbox2ScreenState extends State<Checkbox2Screen> {
                           showToast(
                               text: 'تم تاكيد التسليم',
                               state: ToastStates.SUCCESS);
-
+                              isButtonDisabled= false;
                         }else {
 
                           showToast(
